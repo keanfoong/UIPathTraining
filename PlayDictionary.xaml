@@ -66,7 +66,7 @@
       <x:Boolean x:Key="ShouldCollapseAll">True</x:Boolean>
     </scg:Dictionary>
   </sap:WorkflowViewStateService.ViewState>
-  <Sequence DisplayName="PlayDictionary" sap:VirtualizedContainerService.HintSize="481.142857142857,970.285714285714" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="PlayDictionary" sap:VirtualizedContainerService.HintSize="478.857142857143,1466.85714285714" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="scg:IDictionary(x:Object, x:Object)" Name="MyDict" />
       <Variable x:TypeArguments="x:Boolean" Name="status" />
@@ -77,45 +77,69 @@
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <Assign sap:VirtualizedContainerService.HintSize="438.857142857143,61.1428571428571" sap2010:WorkflowViewState.IdRef="Assign_1">
+    <Assign sap2010:Annotation.AnnotationText="This is the manual method for creating a dictionary" sap:VirtualizedContainerService.HintSize="436.571428571429,104" sap2010:WorkflowViewState.IdRef="Assign_1">
       <Assign.To>
         <OutArgument x:TypeArguments="scg:IDictionary(x:Object, x:Object)">[MyDict]</OutArgument>
       </Assign.To>
       <Assign.Value>
         <InArgument x:TypeArguments="scg:IDictionary(x:Object, x:Object)">[new Dictionary(Of Object, Object) From{{"Empl_ID", "1234"},{"Name","Steve"},{"Age","46"}}]</InArgument>
       </Assign.Value>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
     </Assign>
-    <ui:MessageBox Caption="{x:Null}" ChosenButton="{x:Null}" AutoCloseAfter="00:00:00" DisplayName="Message Box" sap:VirtualizedContainerService.HintSize="438.857142857143,52.5714285714286" sap2010:WorkflowViewState.IdRef="MessageBox_1" Text="[MyDict(&quot;Empl_ID&quot;).ToString + vbCrLf + MyDict(&quot;Name&quot;).ToString + environment.newline +  MyDict(&quot;Age&quot;).ToString]" />
-    <maes:AddToDictionary x:TypeArguments="x:Object, x:Object" Dictionary="[MyDict]" DisplayName="Add to dictionary" sap:VirtualizedContainerService.HintSize="438.857142857143,71.4285714285714" sap2010:WorkflowViewState.IdRef="AddToDictionary`2_1" Key="[&quot;Tel_number&quot;]" Value="[&quot;123141&quot;]" />
-    <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="438.857142857143,62.8571428571429" sap2010:WorkflowViewState.IdRef="WriteLine_1" Text="[MyDict(&quot;Tel_number&quot;).ToString]" />
-    <maes:RemoveFromDictionary x:TypeArguments="x:Object, x:Object" Dictionary="[MyDict]" DisplayName="Remove from dictionary" sap:VirtualizedContainerService.HintSize="438.857142857143,71.4285714285714" sap2010:WorkflowViewState.IdRef="RemoveFromDictionary`2_1" Key="[&quot;Empl_ID&quot;]" Result="[Status]" />
-    <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="438.857142857143,52.5714285714286" sap2010:WorkflowViewState.IdRef="CommentOut_1">
+    <ui:MessageBox Caption="{x:Null}" ChosenButton="{x:Null}" AutoCloseAfter="00:00:00" DisplayName="Message Box" sap:VirtualizedContainerService.HintSize="436.571428571429,51.4285714285714" sap2010:WorkflowViewState.IdRef="MessageBox_1" Text="[MyDict(&quot;Empl_ID&quot;).ToString + vbCrLf + MyDict(&quot;Name&quot;).ToString + environment.newline +  MyDict(&quot;Age&quot;).ToString]" />
+    <maes:AddToDictionary x:TypeArguments="x:Object, x:Object" sap2010:Annotation.AnnotationText="using the microsoft.activities.extension method. Can also initialize new Dictionary variable using this method. I've elected to reuse the same Var name MyDict. But to do this, I had to change the original variable type of MyDict" Dictionary="[MyDict]" DisplayName="Add to dictionary" sap:VirtualizedContainerService.HintSize="436.571428571429,178.285714285714" sap2010:WorkflowViewState.IdRef="AddToDictionary`2_1" Key="[&quot;Tel_number&quot;]" Value="[&quot;123141&quot;]">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+    </maes:AddToDictionary>
+    <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="436.571428571429,61.7142857142857" sap2010:WorkflowViewState.IdRef="WriteLine_1" Text="[MyDict(&quot;Tel_number&quot;).ToString]" />
+    <maes:RemoveFromDictionary x:TypeArguments="x:Object, x:Object" sap2010:Annotation.AnnotationText="This is the microsoft.activities.extensions method to remove a key/value pair entry" Dictionary="[MyDict]" DisplayName="Remove from dictionary" sap:VirtualizedContainerService.HintSize="436.571428571429,114.285714285714" sap2010:WorkflowViewState.IdRef="RemoveFromDictionary`2_1" Key="[&quot;Empl_ID&quot;]" Result="[Status]">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+    </maes:RemoveFromDictionary>
+    <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="436.571428571429,314.857142857143" sap2010:WorkflowViewState.IdRef="CommentOut_1">
       <ui:CommentOut.Body>
-        <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="200,69.7142857142857" sap2010:WorkflowViewState.IdRef="Sequence_2">
+        <Sequence sap2010:Annotation.AnnotationText="ignored because trying to find a missing key entry. deleted above" DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="273.142857142857,197.142857142857" sap2010:WorkflowViewState.IdRef="Sequence_2">
           <sap:WorkflowViewStateService.ViewState>
             <scg:Dictionary x:TypeArguments="x:String, x:Object">
               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              <x:Boolean x:Key="IsPinned">True</x:Boolean>
+              <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
             </scg:Dictionary>
           </sap:WorkflowViewStateService.ViewState>
-          <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="438.857142857143,62.8571428571429" sap2010:WorkflowViewState.IdRef="WriteLine_4" Text="[MyDict(&quot;Empl_ID&quot;).ToString]" />
+          <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="230.857142857143,61.7142857142857" sap2010:WorkflowViewState.IdRef="WriteLine_4" Text="[MyDict(&quot;Empl_ID&quot;).ToString]" />
         </Sequence>
       </ui:CommentOut.Body>
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
-          <x:Boolean x:Key="IsPinned">False</x:Boolean>
-          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+          <x:Boolean x:Key="IsPinned">True</x:Boolean>
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
     </ui:CommentOut>
-    <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="438.857142857143,62.8571428571429" sap2010:WorkflowViewState.IdRef="WriteLine_3" Text="[&quot;Item Empl_ID has been removed. Status is &quot; + status.ToString]" />
-    <Assign sap:VirtualizedContainerService.HintSize="438.857142857143,61.1428571428571" sap2010:WorkflowViewState.IdRef="Assign_2">
+    <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="436.571428571429,62.8571428571429" sap2010:WorkflowViewState.IdRef="WriteLine_3" Text="[&quot;Item Empl_ID has been removed. Status is &quot; + status.ToString]" />
+    <Assign sap2010:Annotation.AnnotationText="using the manual way of removing dictionary entry" sap:VirtualizedContainerService.HintSize="436.571428571429,105.142857142857" sap2010:WorkflowViewState.IdRef="Assign_2">
       <Assign.To>
         <OutArgument x:TypeArguments="x:Boolean">[item]</OutArgument>
       </Assign.To>
       <Assign.Value>
         <InArgument x:TypeArguments="x:Boolean">[MyDict.Remove("Name")]</InArgument>
       </Assign.Value>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
     </Assign>
-    <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="438.857142857143,62.8571428571429" sap2010:WorkflowViewState.IdRef="WriteLine_5" Text="[&quot;Item Name has been removed. Status is &quot; + item.ToString]" />
+    <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="436.571428571429,62.8571428571429" sap2010:WorkflowViewState.IdRef="WriteLine_5" Text="[&quot;Item Name has been removed. Status is &quot; + item.ToString]" />
   </Sequence>
 </Activity>
