@@ -51,9 +51,9 @@
       <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
       <AssemblyReference>System.Memory</AssemblyReference>
       <AssemblyReference>NPOI</AssemblyReference>
-      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
       <AssemblyReference>System.Runtime.Serialization</AssemblyReference>
       <AssemblyReference>UiPath.Excel.Activities</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
   <Sequence sap2010:Annotation.AnnotationText="This code will create a workflow to print &quot; Hello World&quot;" DisplayName="Sequence - Hello World" sap:VirtualizedContainerService.HintSize="376.571428571429,323.428571428571" sap2010:WorkflowViewState.IdRef="Sequence_1">
@@ -64,6 +64,6 @@
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
     <ui:Comment sap:VirtualizedContainerService.HintSize="334.285714285714,75.4285714285714" sap2010:WorkflowViewState.IdRef="Comment_1" Text="&quot;Message Box' activity displays a message box with the specified text&quot;" />
-    <ui:MessageBox ChosenButton="{x:Null}" AutoCloseAfter="00:00:10" Buttons="YesNoCancel" Caption="Caption" DisplayName="Message Box - Hello World" sap:VirtualizedContainerService.HintSize="334.285714285714,85.7142857142857" sap2010:WorkflowViewState.IdRef="MessageBox_1" Text="[&quot;Hello World&quot;]" />
+    <ui:MessageBox ChosenButton="{x:Null}" AutoCloseAfter="00:00:10" Buttons="YesNoCancel" Caption="Caption" DisplayName="Message Box - Hello World" sap:VirtualizedContainerService.HintSize="334.285714285714,85.7142857142857" sap2010:WorkflowViewState.IdRef="MessageBox_1" Text="[&quot;Hello World - uploading to github&quot;]" />
   </Sequence>
 </Activity>
