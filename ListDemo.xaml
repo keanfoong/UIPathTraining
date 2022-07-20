@@ -1,4 +1,4 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="ListDemo" mva:VisualBasic.Settings="{x:Null}" sap:VirtualizedContainerService.HintSize="566.666666666667,1464.66666666667" sap2010:WorkflowViewState.IdRef="ListDemo_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="ListDemo" mva:VisualBasic.Settings="{x:Null}" sap:VirtualizedContainerService.HintSize="534,3268" sap2010:WorkflowViewState.IdRef="ListDemo_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
       <x:String>System.Activities</x:String>
@@ -25,6 +25,10 @@
       <x:String>System.Reflection</x:String>
       <x:String>System.Runtime.InteropServices</x:String>
       <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>System.ComponentModel</x:String>
+      <x:String>System.Runtime.Serialization</x:String>
+      <x:String>System.Xml.Serialization</x:String>
+      <x:String>System.Activities.DynamicUpdate</x:String>
     </sco:Collection>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
@@ -52,24 +56,22 @@
       <AssemblyReference>System.ValueTuple</AssemblyReference>
       <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
       <AssemblyReference>NPOI</AssemblyReference>
-      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
       <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="Create a blank list" DisplayName="ListDemo" sap:VirtualizedContainerService.HintSize="376,1400" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence sap2010:Annotation.AnnotationText="Create a blank list" DisplayName="ListDemo" sap:VirtualizedContainerService.HintSize="376,3203.33333333333" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
-      <Variable x:TypeArguments="scg:List(x:String)" Name="employee">
-        <Variable.Default>
-          <mva:VisualBasicValue x:TypeArguments="scg:List(x:String)" ExpressionText="new List(Of String)" />
-        </Variable.Default>
-      </Variable>
-      <Variable x:TypeArguments="scg:List(x:String)" Name="colors">
-        <Variable.Default>
-          <mva:VisualBasicValue x:TypeArguments="scg:List(x:String)" ExpressionText="new List(OF String) from {&quot;red&quot;,&quot;green&quot;,&quot;blue&quot;}" />
-        </Variable.Default>
-      </Variable>
+      <Variable x:TypeArguments="scg:List(x:String)" Default="[new List(Of String)]" Name="employee" />
+      <Variable x:TypeArguments="scg:List(x:String)" Default="[new List(OF String) from {&quot;red&quot;,&quot;green&quot;,&quot;blue&quot;}]" Name="colors" />
       <Variable x:TypeArguments="x:Boolean" Name="status" />
       <Variable x:TypeArguments="x:String" Name="input" />
+      <Variable x:TypeArguments="scg:List(x:String)" Name="new_employee">
+        <Variable.Default>
+          <mva:VisualBasicValue x:TypeArguments="scg:List(x:String)" ExpressionText="new List(of string)" />
+        </Variable.Default>
+      </Variable>
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -77,34 +79,117 @@
         <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:InputDialog Label="{x:Null}" Options="{x:Null}" OptionsString="{x:Null}" DisplayName="Input Dialog" sap:VirtualizedContainerService.HintSize="334,244.666666666667" sap2010:WorkflowViewState.IdRef="InputDialog_1" IsPassword="False" Title="Choose a color to delete">
+    <ui:InputDialog Label="{x:Null}" Options="{x:Null}" OptionsString="{x:Null}" sap2010:Annotation.AnnotationText="Input dialog box to query user for color to be deleted" DisplayName="Input Dialog" sap:VirtualizedContainerService.HintSize="334,275.333333333333" sap2010:WorkflowViewState.IdRef="InputDialog_1" IsPassword="False" Title="Choose a color to delete">
       <ui:InputDialog.Result>
         <OutArgument x:TypeArguments="x:String">[input]</OutArgument>
       </ui:InputDialog.Result>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
     </ui:InputDialog>
-    <AddToCollection x:TypeArguments="x:String" Collection="[employee]" DisplayName="Add To Collection" sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="AddToCollection`1_1" Item="Peter" />
+    <AddToCollection x:TypeArguments="x:String" sap2010:Annotation.AnnotationText="Use the add collection activity to add a string ( or other types) to an existing collection (in this case .. a list declared below)" Collection="[employee]" DisplayName="Add To Collection" sap:VirtualizedContainerService.HintSize="334,117.333333333333" sap2010:WorkflowViewState.IdRef="AddToCollection`1_5" Item="Bunny">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+    </AddToCollection>
     <AddToCollection x:TypeArguments="x:String" Collection="[employee]" DisplayName="Add To Collection" sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="AddToCollection`1_2" Item="Mark" />
     <AddToCollection x:TypeArguments="x:String" Collection="[employee]" DisplayName="Add To Collection" sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="AddToCollection`1_3" Item="JOhn" />
-    <InvokeMethod DisplayName="Invoke Method" sap:VirtualizedContainerService.HintSize="334,137.333333333333" sap2010:WorkflowViewState.IdRef="InvokeMethod_1" MethodName="Add">
+    <InvokeMethod DisplayName="Invoke Method" sap:VirtualizedContainerService.HintSize="334,137.333333333333" sap2010:WorkflowViewState.IdRef="InvokeMethod_1" MethodName="AddRange">
       <InvokeMethod.TargetObject>
         <InArgument x:TypeArguments="scg:List(x:String)">[employee]</InArgument>
       </InvokeMethod.TargetObject>
-      <InArgument x:TypeArguments="x:String">
-        <Literal x:TypeArguments="x:String">Mary</Literal>
+      <InArgument x:TypeArguments="scg:List(x:String)">
+        <mva:VisualBasicValue x:TypeArguments="scg:List(x:String)" ExpressionText="new List(Of String) from {&quot;Mary&quot;,&quot;Mark&quot;,&quot;Honey&quot;}" />
       </InArgument>
     </InvokeMethod>
-    <ExistsInCollection x:TypeArguments="x:String" sap2010:Annotation.AnnotationText="ctrl+K triggers set Var:  &#xD;&#xA;To create a variable" Collection="[colors]" DisplayName="Exists In Collection" sap:VirtualizedContainerService.HintSize="334,67.3333333333333" sap2010:WorkflowViewState.IdRef="ExistsInCollection`1_1" Item="[input]" Result="[status]">
+    <ExistsInCollection x:TypeArguments="x:String" sap2010:Annotation.AnnotationText="1) ctrl+K triggers set Var:  &#xA;To create a variable&#xA;2) Use this function to check if the color exist. result is boolean stored in a boolean variable" Collection="[colors]" DisplayName="Exists In Collection" sap:VirtualizedContainerService.HintSize="334,134" sap2010:WorkflowViewState.IdRef="ExistsInCollection`1_1" Item="[input]" Result="[status]">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
     </ExistsInCollection>
-    <RemoveFromCollection x:TypeArguments="x:String" Collection="[colors]" DisplayName="Remove From Collection" sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="RemoveFromCollection`1_1" Item="[input]" Result="[status]" />
-    <ui:MessageBox Caption="{x:Null}" ChosenButton="{x:Null}" AutoCloseAfter="00:00:00" DisplayName="Message Box" sap:VirtualizedContainerService.HintSize="334,85.3333333333333" sap2010:WorkflowViewState.IdRef="MessageBox_1" Text="[employee(employee.count -1) + &quot; is &quot; + colors(0) + &quot; under the collar!&quot;]" />
-    <ui:MessageBox Caption="{x:Null}" ChosenButton="{x:Null}" AutoCloseAfter="00:00:00" DisplayName="Message Box" sap:VirtualizedContainerService.HintSize="334,85.3333333333333" sap2010:WorkflowViewState.IdRef="MessageBox_2" Text="[input + &quot; was deleted? &quot; + status.ToString]" />
-    <ClearCollection x:TypeArguments="x:String" Collection="[employee]" DisplayName="Clear Collection" sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="ClearCollection`1_1" />
-    <AddToCollection x:TypeArguments="x:String" Collection="[employee]" DisplayName="Add To Collection" sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="AddToCollection`1_4" Item="Maxx" />
+    <RemoveFromCollection x:TypeArguments="x:String" sap2010:Annotation.AnnotationText="use user input to remove the targeted color" Collection="[colors]" DisplayName="Remove From Collection" sap:VirtualizedContainerService.HintSize="334,67.3333333333333" sap2010:WorkflowViewState.IdRef="RemoveFromCollection`1_1" Item="[input]" Result="[status]">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+    </RemoveFromCollection>
+    <ui:MessageBox Caption="{x:Null}" ChosenButton="{x:Null}" sap2010:Annotation.AnnotationText="index the last employee and the first index of color, for the message output" AutoCloseAfter="00:00:00" DisplayName="Message Box" sap:VirtualizedContainerService.HintSize="334,130.666666666667" sap2010:WorkflowViewState.IdRef="MessageBox_1" Text="[employee(employee.count -1) + &quot; is &quot; + colors(0) + &quot; under the collar!&quot;]">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+    </ui:MessageBox>
+    <ui:MessageBox Caption="{x:Null}" ChosenButton="{x:Null}" sap2010:Annotation.AnnotationText="Print out the full list of employee, instead of comma delimited.. using vbcrlf" AutoCloseAfter="00:00:00" DisplayName="Message Box" sap:VirtualizedContainerService.HintSize="334,130.666666666667" sap2010:WorkflowViewState.IdRef="MessageBox_4" Text="[String.join(vbcrlf,employee)]">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+    </ui:MessageBox>
+    <ui:MessageBox Caption="{x:Null}" ChosenButton="{x:Null}" sap2010:Annotation.AnnotationText="display status of color remove operation. status is a boolean variable, capturing result of the remove operation" AutoCloseAfter="00:00:00" DisplayName="Message Box" sap:VirtualizedContainerService.HintSize="334,147.333333333333" sap2010:WorkflowViewState.IdRef="MessageBox_2" Text="[input + &quot; was deleted? &quot; + status.ToString]">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+    </ui:MessageBox>
+    <ClearCollection x:TypeArguments="x:String" sap2010:Annotation.AnnotationText="Note: No &quot;result&quot; parameter to confirm if operation was successful or not. assume will always clear the collection.. assuming it exist" Collection="[employee]" DisplayName="Clear Collection" sap:VirtualizedContainerService.HintSize="334,117.333333333333" sap2010:WorkflowViewState.IdRef="ClearCollection`1_1">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+    </ClearCollection>
+    <AddToCollection x:TypeArguments="x:String" sap2010:Annotation.AnnotationText="employee is currently empty, so reinitialize with &quot;Maxx&quot;" Collection="[employee]" DisplayName="Add To Collection" sap:VirtualizedContainerService.HintSize="334,67.3333333333333" sap2010:WorkflowViewState.IdRef="AddToCollection`1_4" Item="Maxx">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+    </AddToCollection>
     <ui:MessageBox Caption="{x:Null}" ChosenButton="{x:Null}" AutoCloseAfter="00:00:00" DisplayName="Message Box" sap:VirtualizedContainerService.HintSize="334,85.3333333333333" sap2010:WorkflowViewState.IdRef="MessageBox_3" Text="[employee(employee.count -1) + &quot; has all these colors  : &quot; + string.join(&quot;,&quot;,colors)]" />
+    <InvokeMethod DisplayName="Invoke Method" sap:VirtualizedContainerService.HintSize="334,137.333333333333" sap2010:WorkflowViewState.IdRef="InvokeMethod_2" MethodName="AddRange">
+      <InvokeMethod.TargetObject>
+        <InArgument x:TypeArguments="scg:List(x:String)">[employee]</InArgument>
+      </InvokeMethod.TargetObject>
+      <InArgument x:TypeArguments="scg:List(x:String)">[colors]</InArgument>
+    </InvokeMethod>
+    <ui:MessageBox Caption="{x:Null}" ChosenButton="{x:Null}" AutoCloseAfter="00:00:00" DisplayName="Message Box" sap:VirtualizedContainerService.HintSize="334,85.3333333333333" sap2010:WorkflowViewState.IdRef="MessageBox_5" Text="[string.join(vbcrlf, employee)]" />
+    <InvokeMethod sap2010:Annotation.AnnotationText="Sort in ascending order" DisplayName="Invoke Method" sap:VirtualizedContainerService.HintSize="334,168" sap2010:WorkflowViewState.IdRef="InvokeMethod_3" MethodName="Sort">
+      <InvokeMethod.TargetObject>
+        <InArgument x:TypeArguments="scg:List(x:String)">[employee]</InArgument>
+      </InvokeMethod.TargetObject>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+    </InvokeMethod>
+    <ui:MessageBox Caption="{x:Null}" ChosenButton="{x:Null}" AutoCloseAfter="00:00:00" DisplayName="Message Box" sap:VirtualizedContainerService.HintSize="334,85.3333333333333" sap2010:WorkflowViewState.IdRef="MessageBox_7" Text="[string.join(vbcrlf, employee)]" />
+    <InvokeMethod DisplayName="Invoke Method" sap:VirtualizedContainerService.HintSize="334,137.333333333333" sap2010:WorkflowViewState.IdRef="InvokeMethod_5" MethodName="AddRange">
+      <InvokeMethod.TargetObject>
+        <InArgument x:TypeArguments="scg:List(x:String)">[new_employee]</InArgument>
+      </InvokeMethod.TargetObject>
+      <InArgument x:TypeArguments="scg:List(x:String)">[employee]</InArgument>
+    </InvokeMethod>
+    <InvokeMethod sap2010:Annotation.AnnotationText="reverse the order of the sorted list" DisplayName="Invoke Method" sap:VirtualizedContainerService.HintSize="334,168" sap2010:WorkflowViewState.IdRef="InvokeMethod_4" MethodName="Reverse">
+      <InvokeMethod.TargetObject>
+        <InArgument x:TypeArguments="scg:List(x:String)">[employee]</InArgument>
+      </InvokeMethod.TargetObject>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+    </InvokeMethod>
+    <ui:MessageBox Caption="{x:Null}" ChosenButton="{x:Null}" AutoCloseAfter="00:00:00" DisplayName="Message Box" sap:VirtualizedContainerService.HintSize="334,85.3333333333333" sap2010:WorkflowViewState.IdRef="MessageBox_6" Text="[&quot;sorted ascending order  &quot;  + string.join(&quot;,&quot;,new_employee) + vbCrLf +&quot;sorted in descending order &quot; + string.join(&quot;,&quot;, employee)]" />
   </Sequence>
 </Activity>
